@@ -41,12 +41,12 @@ jobs:
           openshift_server_url: ${{ secrets.OPENSHIFT_SERVER }}
           openshift_token: ${{ secrets.OPENSHIFT_TOKEN }}
           insecure_skip_tls_verify: true
-          namespace: snyk-demo
+          namespace: goof-demo
       - name: Deploy and expose app
         id: oc-new-app
         uses: redhat-actions/oc-new-app@v1
         with:
           app_name: goof
           port: 3001
-          namespace: snyk-demo
+          namespace: goof-demo
           image: quay.io/snyk-demo/goof-rhpds:deploy
