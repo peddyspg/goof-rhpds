@@ -35,3 +35,18 @@ jobs:
         uses: github/codeql-action/upload-sarif@v1
         with:
           sarif_file: snyk.sarif
+      - name: OpenShift login
+        uses: redhat-actions/oc-login@v1
+        with:
+          openshift_server_url: ${{ secrets.OPENSHIFT_SERVER }}
+          openshift_token: ${{ secrets.OPENSHIFT_TOKEN }}
+          insecure_skip_tls_verify: true
+          namespace: snyk-demo
+      - name: Deploy and expose app
+        id: oc-new-app
+        uses: redhat-actions/oc-new-app@v1
+        with:
+          app_name: goof
+          port: 3001
+          namespace: snyk-demo
+          image: quay.io/snyk-demo/goof-rhpds:deploy
